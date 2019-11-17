@@ -1,11 +1,29 @@
 package util;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
 import models.User;
 
+// Logic already finished. We need to test the module.
 public class UserUtil {
 	public static final String ALPHA_NUMERICO = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789*$_.";
 	private static String RANDOM_ALPHA_NUMERICO = "";
 	private static final int PASSWORD_LENGTH = 12;
+	
+	static {
+		try {
+			File file = new File("C:\\Users\\Jesus\\Desktop\\PASSWORD_KEY.txt");
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			RANDOM_ALPHA_NUMERICO = br.readLine();
+			br.close();
+		} catch (IOException e) {
+			System.out.println("No se encontró el archivo del alfabeto");
+			e.printStackTrace();
+		}
+	}
 	
 	public UserUtil() {}
 	

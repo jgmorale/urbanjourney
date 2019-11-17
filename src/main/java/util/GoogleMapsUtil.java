@@ -19,7 +19,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class GoogleMapsUtil {
-	// Already completed
+	// TODO Logic already completed. Need to test the module. Need to add a translator for time and distance.
 	public static final String URL = "https://maps.googleapis.com/maps/api/directions/json?";
 	public static String API_KEY = "";
 	
