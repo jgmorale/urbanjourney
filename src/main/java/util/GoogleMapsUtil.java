@@ -1,5 +1,9 @@
 package util;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +21,19 @@ import org.json.simple.parser.JSONParser;
 public class GoogleMapsUtil {
 	// Already completed
 	public static final String URL = "https://maps.googleapis.com/maps/api/directions/json?";
-	public static final String API_KEY = "";
+	public static String API_KEY = "";
+	
+	static {
+		try {
+			File file = new File("C:\\Users\\Jesus\\Desktop\\API_KEY.txt");
+			BufferedReader br = new BufferedReader(new FileReader(file));
+			API_KEY = br.readLine();
+			br.close();
+		} catch (IOException e) {
+			System.out.println("No se encontró el archivo de la API KEY");
+			e.printStackTrace();
+		}
+	}
 	
 	public static List<String> getTimeDistSteps(String origen, String destino) {
 		List<String> lista = new ArrayList<String>();

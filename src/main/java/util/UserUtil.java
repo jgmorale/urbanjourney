@@ -4,7 +4,7 @@ import models.User;
 
 public class UserUtil {
 	public static final String ALPHA_NUMERICO = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789*$_.";
-	private static final String RANDOM_ALPHA_NUMERICO = "gm0yB.Dvwd7ntaHLs$eGrqKjuUMSPNOJWT_fhx6482Y35VlpzIQc1XACbkiZE*9RFo";
+	private static String RANDOM_ALPHA_NUMERICO = "";
 	private static final int PASSWORD_LENGTH = 12;
 	
 	public UserUtil() {}
