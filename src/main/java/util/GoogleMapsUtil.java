@@ -20,14 +20,14 @@ import org.json.simple.parser.JSONParser;
 
 public class GoogleMapsUtil {
 	// TODO Logic already completed. Need to test the module. Need to add a translator for time and distance.
-	public static final String URL = "https://maps.googleapis.com/maps/api/directions/json?";
-	public static String API_KEY = "";
+	private static final String URL = "https://maps.googleapis.com/maps/api/directions/json?";
+	private static String apiKey = "";
 	
 	static {
 		try {
 			File file = new File("C:\\Users\\Jesus\\Desktop\\API_KEY.txt");
 			BufferedReader br = new BufferedReader(new FileReader(file));
-			API_KEY = br.readLine();
+			apiKey = br.readLine();
 			br.close();
 		} catch (IOException e) {
 			System.out.println("No se encontró el archivo de la API KEY");
@@ -38,7 +38,7 @@ public class GoogleMapsUtil {
 	public static List<String> getTimeDistSteps(String origen, String destino) {
 		List<String> lista = new ArrayList<String>();
 		// Crea la URI para pedir el recurso a Google Maps con base en el origen y el destino
-		String url_final = URL + "origin=" + origen + "&destination" + destino + "&key=" + API_KEY;
+		String url_final = URL + "origin=" + origen + "&destination" + destino + "&key=" + apiKey;
 		Client client = ClientBuilder.newClient();
 		WebTarget target = client.target(url_final);
 		Invocation.Builder request = target.request(MediaType.APPLICATION_JSON);
