@@ -23,7 +23,7 @@ public class DatabaseUtil {
 			databasePass = br.readLine();
 			br.close();
 		} catch (IOException e) {
-			System.out.println("No se encontró el archivo de la API KEY");
+			System.out.println("No se encontró el archivo del psswd de la base de datos");
 			e.printStackTrace();
 		}
 	}
