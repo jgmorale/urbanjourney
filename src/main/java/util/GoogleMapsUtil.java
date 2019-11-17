@@ -17,7 +17,7 @@ import org.json.simple.parser.JSONParser;
 public class GoogleMapsUtil {
 	// Already completed
 	public static final String URL = "https://maps.googleapis.com/maps/api/directions/json?";
-	public static final String API_KEY = "AIzaSyAomYdf0G4S_QZ6TE6puT5x8eRcRaHXKo0";
+	public static final String API_KEY = "";
 	
 	public static List<String> getTimeDistSteps(String origen, String destino) {
 		List<String> lista = new ArrayList<String>();
