@@ -26,8 +26,8 @@ public class SaveRouteResource {
 	// TODO agregar la condicion de que se verifique el token
 	@GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getRoutes(@FormParam("id_usuario") int id_usuario, @FormParam("token") String token){
-		if(id_usuario == -1) {
+    public String getRoutes(@FormParam("idUsuario") int idUsuario, @FormParam("token") String token){
+		if(idUsuario == -1) {
 			return new Gson().toJson("Necesita una cuenta para poder hacer esta acción");
 		} else {
 			// Se crea un nuevo modelo de usuario para comprobar si el token actual es valido
@@ -35,14 +35,14 @@ public class SaveRouteResource {
 			// Se crea una conexion con la base de datos
 	        Connection conn = DatabaseUtil.getConnection();
 	        UserManager usrManager = new UserManager(conn);
-			usuario = usrManager.getUser(id_usuario);
+			usuario = usrManager.getUser(idUsuario);
 			if (token.equals(usuario.getToken())) {
 				// Se crea una lista de rutas para almacenar las rutas del usuario
 				List<Route> routes = new ArrayList<Route>();
 				// Se crea un dbRouteManager para poder persistir a la BD
 		        DbRouteManager dbRouteManager = new DbRouteManager(conn);
 		        // Se obtienen las rutas de la BD con base en el id del usuario
-		        routes = dbRouteManager.getRoutes(id_usuario);
+		        routes = dbRouteManager.getRoutes(idUsuario);
 		        
 		        if(routes.size() == 0) {
 		        	// Si el tamaño de la lista que tiene rutas es cero, entonces quiere decir que
@@ -63,8 +63,8 @@ public class SaveRouteResource {
 	@GET
 	@Path("/getRoute")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public String getRoute(@FormParam("id_usuario") int id_usuario, @FormParam("id_ruta") int id_ruta, @FormParam("token") String token) {
-		if(id_usuario == -1) {
+	public String getRoute(@FormParam("idUsuario") int idUsuario, @FormParam("idRuta") int idRuta, @FormParam("token") String token) {
+		if(idUsuario == -1) {
 			return new Gson().toJson("Necesita una cuenta para poder hacer esta acción");
 		} else {
 			// Se crea un nuevo modelo de usuario para comprobar si el token actual es valido
@@ -74,16 +74,16 @@ public class SaveRouteResource {
 			// Se crea un usrManager para poder persistir a la tabla del usuario en la BD
 			UserManager usrManager = new UserManager(conn);
 			// Se obtiene el usuario por id
-			usuario = usrManager.getUser(id_usuario);
+			usuario = usrManager.getUser(idUsuario);
 			// Se valida que el token que se recibió sea igual al token que generó el sistema
 			if (token.equals(usuario.getToken())) {
-				if(id_ruta > 0) {
+				if(idRuta > 0) {
 					// Crea un dbRouteManager para poder persistir la BD
 					DbRouteManager dbRouteManager = new DbRouteManager(conn);
 					// Crea un nuevo modelo para poder guardar los datos de la BD
 					Route route = new Route();
 					// Obtiene la ruta deseada con base en el id de usuario y el id de la ruta
-					route = dbRouteManager.getRoute(id_usuario, id_ruta);
+					route = dbRouteManager.getRoute(idRuta);
 					// Convierte la ruta obtenida al formato JSON que se acordó en el front end
 					String urbnJSON = RouteUtil.urbanJourneyResp(route);
 					// Regresa la respuesta al front end
@@ -99,14 +99,14 @@ public class SaveRouteResource {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public String saveRoute(String body, @FormParam("id_usuario") int id_usuario, @FormParam("token") String token) {
-		if(id_usuario == -1) {
+	public String saveRoute(String body, @FormParam("idUsuario") int idUsuario, @FormParam("token") String token) {
+		if(idUsuario == -1) {
 			return new Gson().toJson("Necesita una cuenta para poder hacer esta acción");
 		} else {
 			User usuario = new User();
 			Connection conn = DatabaseUtil.getConnection();
 			UserManager usrManager = new UserManager(conn);
-			usuario = usrManager.getUser(id_usuario);
+			usuario = usrManager.getUser(idUsuario);
 			if (token.equals(usuario.getToken())) {
 				// Crea un nuevo modelo de ruta para poder guardar los datos
 		        Route route = new Route();

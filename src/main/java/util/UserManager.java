@@ -6,7 +6,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import models.User;
-	
+
+// TODO logic already completed.
 public class UserManager {
 	public Connection conn;
 	
@@ -162,6 +163,7 @@ public class UserManager {
 			stmnt.setString(6, usuario.getCiudad());
 			stmnt.setString(7, usuario.getPais());
 			stmnt.setString(8, usuario.getToken());
+			stmnt.setInt(9, usuario.getId());
 			
 			result = stmnt.executeUpdate();
 		} catch (SQLException e) {

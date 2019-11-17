@@ -2,6 +2,7 @@ package util;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,47 +25,47 @@ public class DbRouteManager {
 		int result = -1;
 		
 		try {
-			String query_ruta = "INSERT INTO ruta(id_usuario, nombre, num_lugares, duracion, distancia, status) VALUES (?, ?, ?, ?, ?, ?)";
-			PreparedStatement stmnt_ruta = conn.prepareStatement(query_ruta);
+			String queryRuta = "INSERT INTO ruta(id_usuario, nombre, num_lugares, duracion, distancia, status) VALUES (?, ?, ?, ?, ?, ?)";
+			PreparedStatement stmntRuta = conn.prepareStatement(queryRuta);
 			
 			// Obtiene los valores de una ruta y los pone en un stmnt para mandarlos en un query de sql
-			stmnt_ruta.setInt(1, route.getId_usuario());
-			stmnt_ruta.setString(2, route.getNombre());
-			stmnt_ruta.setInt(3, route.getNum_lugares());
-			//stmnt_ruta.setDate(4,(Date)route.getDuracion()); //Arreglar esto
-			stmnt_ruta.setFloat(5, route.getDistancia());
-			stmnt_ruta.setString(6, route.getStatus());
+			stmntRuta.setInt(1, route.getIdUsuario());
+			stmntRuta.setString(2, route.getNombre());
+			stmntRuta.setInt(3, route.getNumLugares());
+			stmntRuta.setInt(4, route.getDuracion());
+			stmntRuta.setInt(5, route.getDistancia());
+			stmntRuta.setString(6, route.getStatus());
 			
-			stmnt_ruta.executeUpdate(); // Used to perform INSERT, UPDATE or DELETE
+			stmntRuta.executeUpdate(); // Used to perform INSERT, UPDATE or DELETE
 			
 			for(Trajectory t: route.getTrayectorias()) {
-				String query_tr = "INSERT INTO trayectoria(id_ruta, id_origin, id_destino, duracion, distancia, direcciones) VALUES (?, ?, ?, ?, ?, ?)";
-				PreparedStatement stmnt_tr = conn.prepareStatement(query_tr);
+				String queryTr = "INSERT INTO trayectoria(id_ruta, id_origen, id_destino, duracion, distancia, direcciones) VALUES (?, ?, ?, ?, ?, ?)";
+				PreparedStatement stmntTr = conn.prepareStatement(queryTr);
 				
-				stmnt_tr.setInt(1, t.getId_ruta());
-				stmnt_tr.setInt(2, t.getId_origen());
-				stmnt_tr.setInt(3, t.getId_destino());
-				//stmnt_tr.setDate(4, t.getTiempo()); // Arreglar esto
-				stmnt_tr.setFloat(5, t.getDistancia());
-				stmnt_tr.setString(6, t.getDirecciones());
+				stmntTr.setInt(1, t.getIdRuta());
+				stmntTr.setInt(2, t.getIdOrigen());
+				stmntTr.setInt(3, t.getIdDestino());
+				stmntTr.setInt(4, t.getTiempo());
+				stmntTr.setInt(5, t.getDistancia());
+				stmntTr.setString(6, t.getDirecciones());
 				
-				stmnt_tr.executeUpdate(); // Used to perform INSERT, UPDATE or DELETE
+				stmntTr.executeUpdate(); // Used to perform INSERT, UPDATE or DELETE
 			}
 			
 			for(Place p: route.getLugares()) {
-				String query_pl = "INSERT INTO lugar(id_ruta, nombre, direccion, tiempo_usuario, urlfoto, calificacion, costo, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-				PreparedStatement stmnt_pl = conn.prepareStatement(query_pl);
+				String queryPl = "INSERT INTO lugar(id_ruta, nombre, direccion, tiempoUsuario, urlfoto, calificacion, costo, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+				PreparedStatement stmntPl = conn.prepareStatement(queryPl);
 				
-				stmnt_pl.setInt(1, p.getId_ruta());
-				stmnt_pl.setString(2, p.getNombre());
-				stmnt_pl.setString(3, p.getDireccion());
-				//stmnt_pl.setDate(4, p.getTiempo_usuario()); //Arreglar esto
-				stmnt_pl.setString(5, p.getUrlFoto());
-				stmnt_pl.setFloat(6, p.getCalificacion());
-				stmnt_pl.setString(7, p.getCosto());
-				stmnt_pl.setString(8, p.getTipo());
+				stmntPl.setInt(1, p.getIdRuta());
+				stmntPl.setString(2, p.getNombre());
+				stmntPl.setString(3, p.getDireccion());
+				stmntPl.setInt(4, p.getTiempoUsuario());
+				stmntPl.setString(5, p.getUrlFoto());
+				stmntPl.setFloat(6, p.getCalificacion());
+				stmntPl.setString(7, p.getCosto());
+				stmntPl.setString(8, p.getTipo());
 				
-				stmnt_pl.executeUpdate(); // Used to perform INSERT, UPDATE or DELETE
+				stmntPl.executeUpdate(); // Used to perform INSERT, UPDATE or DELETE
 			}
 			
 		} catch (SQLException e) {
@@ -74,15 +75,40 @@ public class DbRouteManager {
 		return result;
 	}
 	
-	public Route getRoute(int id_usuario, int id_ruta) {
-		// TODO implementar funcion
-		Route route = new Route();
+	public Route getRoute(int idRuta) {
 		
+		try {
+			Route route = new Route();
+			String queryPl = "SELECT * FROM lugar WHERE id_ruta=?";
+			PreparedStatement stmntPl = null;
+			ResultSet rsPl = null;
+			
+			stmntPl = conn.prepareStatement(queryPl);
+			stmntPl.setInt(1, idRuta);
+			rsPl = stmntPl.executeQuery();
+			
+			while (rsPl.next()) {
+				Place place = new Place();
+				int id = rsPl.getInt(1);
+				/*
+				String nombre
+				String direccion 
+				int tiempoUsuario
+				String urlFoto 
+				float calificacion
+				String
+				String
+				*/
+				
+			}
+		} catch (SQLException e) {
+				e.printStackTrace();
+		}
 		
-		return route;
+		return null;
 	}
 	
-	public List<Route> getRoutes(int id_usuario){
+	public List<Route> getRoutes(int idUsuario){
 		List<Route> routes = new ArrayList<Route>();
 		//TODO implement function
 		
@@ -90,9 +116,61 @@ public class DbRouteManager {
 		return routes;
 	}
 	
-	public int modifyRoute(Route route) {
-		//TODO implement function
-		return -1;
+	// TODO revisar este caso
+	public int modifyRoute(Route route) {	
+		int result = -1;
+				
+		try {
+			String queryRuta = "UPDATE ruta SET id_usuario=?, nombre=?, num_lugares=?, duracion=?, distancia=?, status=? WHERE id=?";
+			PreparedStatement stmntRuta = conn.prepareStatement(queryRuta);
+					
+			// Obtiene los valores de una ruta y los pone en un stmnt para mandarlos en un query de sql
+			stmntRuta.setInt(1, route.getIdUsuario());
+			stmntRuta.setString(2, route.getNombre());
+			stmntRuta.setInt(3, route.getNumLugares());
+			stmntRuta.setInt(4, route.getDuracion());
+			stmntRuta.setInt(5, route.getDistancia());
+			stmntRuta.setString(6, route.getStatus());
+			stmntRuta.setInt(7, route.getId());
+					
+			stmntRuta.executeUpdate(); // Used to perform INSERT, UPDATE or DELETE
+					
+			for(Trajectory t: route.getTrayectorias()) {
+				String queryTr = "UPDATE trayectoria SET id_origen=?, id_destino=?, duracion=?, distancia=?, direcciones=? WHERE id_ruta=?";
+				PreparedStatement stmntTr = conn.prepareStatement(queryTr);
+						
+				//stmntTr.setInt(1, t.getIdRuta());
+				stmntTr.setInt(1, t.getIdOrigen());
+				stmntTr.setInt(2, t.getIdDestino());
+				stmntTr.setInt(3, t.getTiempo());
+				stmntTr.setInt(4, t.getDistancia());
+				stmntTr.setString(5, t.getDirecciones());
+				stmntTr.setInt(6, route.getId());
+						
+				stmntTr.executeUpdate(); // Used to perform INSERT, UPDATE or DELETE
+			}
+					
+			for(Place p: route.getLugares()) {
+				String queryPl = "INSERT INTO lugar(id_ruta, nombre, direccion, tiempoUsuario, urlfoto, calificacion, costo, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+				PreparedStatement stmntPl = conn.prepareStatement(queryPl);
+						
+				stmntPl.setInt(1, p.getIdRuta());
+				stmntPl.setString(2, p.getNombre());
+				stmntPl.setString(3, p.getDireccion());
+				stmntPl.setInt(4, p.getTiempoUsuario());
+				stmntPl.setString(5, p.getUrlFoto());
+				stmntPl.setFloat(6, p.getCalificacion());
+				stmntPl.setString(7, p.getCosto());
+				stmntPl.setString(8, p.getTipo());
+						
+				stmntPl.executeUpdate(); // Used to perform INSERT, UPDATE or DELETE
+			}
+					
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+				
+		return result;
 	}
 	
 }

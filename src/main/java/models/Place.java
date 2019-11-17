@@ -1,15 +1,13 @@
 package models;
 
-import java.time.Duration;
-
 public class Place {
 	private int id;
-	private int id_ruta;
+	private int idRuta;
 	private String nombre;
 	private String direccion;
 	private float latitud;
 	private float longitud;
-	private Duration tiempo_usuario;
+	private int tiempoUsuario;
 	private String urlFoto;
 	private float calificacion;
 	private String costo;
@@ -17,16 +15,16 @@ public class Place {
 	
 	public Place() {}
 
-	public Place(int id, int id_ruta, String nombre, String direccion, float latitud, float longitud,
-			Duration tiempo_usuario, String urlFoto, float calificacion, String costo, String tipo) {
+	public Place(int id, int idRuta, String nombre, String direccion, float latitud, float longitud,
+			int tiempoUsuario, String urlFoto, float calificacion, String costo, String tipo) {
 		super();
 		this.id = id;
-		this.id_ruta = id_ruta;
+		this.idRuta = idRuta;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.latitud = latitud;
 		this.longitud = longitud;
-		this.tiempo_usuario = tiempo_usuario;
+		this.tiempoUsuario = tiempoUsuario;
 		this.urlFoto = urlFoto;
 		this.calificacion = calificacion;
 		this.costo = costo;
@@ -57,12 +55,12 @@ public class Place {
 		this.id = id;
 	}
 
-	public int getId_ruta() {
-		return id_ruta;
+	public int getIdRuta() {
+		return idRuta;
 	}
 
-	public void setId_ruta(int id_ruta) {
-		this.id_ruta = id_ruta;
+	public void setIdRuta(int idRuta) {
+		this.idRuta = idRuta;
 	}
 
 	public String getNombre() {
@@ -81,12 +79,12 @@ public class Place {
 		this.direccion = direccion;
 	}
 
-	public Duration getTiempo_usuario() {
-		return tiempo_usuario;
+	public int getTiempoUsuario() {
+		return tiempoUsuario;
 	}
 
-	public void setTiempo_usuario(Duration tiempo_usuario) {
-		this.tiempo_usuario = tiempo_usuario;
+	public void setTiempoUsuario(int tiempoUsuario) {
+		this.tiempoUsuario = tiempoUsuario;
 	}
 
 	public String getUrlFoto() {

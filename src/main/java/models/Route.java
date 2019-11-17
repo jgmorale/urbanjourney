@@ -1,6 +1,5 @@
 package models;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,27 +8,28 @@ import util.GoogleMapsUtil;
 
 public class Route {
 	private int id;
-	private int id_usuario;
+	private int idUsuario;
 	private String nombre;
-	private int num_lugares;
-	private Duration duracion;
-	private float distancia;
-	private Date fecha_creacion;
+	private int numLugares;
+	private int duracion;
+	private int distancia;
+	private Date fechaCreacion;
 	private String status;
 	private List<Place> lugares;
 	private List<Trajectory> trayectorias;
+	//private List<Points> puntos;
 	
 	public Route() {}
 	
-	public Route(int id, int id_usuario, String nombre, int num_lugares, Duration duracion, float distancia,
-			Date fecha_creacion, String status, List<Place> lugares, List<Trajectory> trayectorias) {
+	public Route(int id, int idUsuario, String nombre, int numLugares, int duracion, int distancia,
+			Date fechaCreacion, String status, List<Place> lugares, List<Trajectory> trayectorias) {
 		this.id = id;
-		this.id_usuario = id_usuario;
+		this.idUsuario = idUsuario;
 		this.nombre = nombre;
-		this.num_lugares = num_lugares;
+		this.numLugares = numLugares;
 		this.duracion = duracion;
 		this.distancia = distancia;
-		this.fecha_creacion = fecha_creacion;
+		this.fechaCreacion = fechaCreacion;
 		this.status = status;
 		this.lugares = lugares;
 		this.trayectorias = trayectorias;
@@ -43,12 +43,12 @@ public class Route {
 		this.id = id;
 	}
 
-	public int getId_usuario() {
-		return id_usuario;
+	public int getIdUsuario() {
+		return idUsuario;
 	}
 
-	public void setId_usuario(int id_usuario) {
-		this.id_usuario = id_usuario;
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 
 	public String getNombre() {
@@ -59,36 +59,36 @@ public class Route {
 		this.nombre = nombre;
 	}
 
-	public int getNum_lugares() {
-		return num_lugares;
+	public int getNumLugares() {
+		return numLugares;
 	}
 
-	public void setNum_lugares(int num_lugares) {
-		this.num_lugares = num_lugares;
+	public void setNumLugares(int numLugares) {
+		this.numLugares = numLugares;
 	}
 
-	public Duration getDuracion() {
+	public int getDuracion() {
 		return duracion;
 	}
 
-	public void setDuracion(Duration duracion) {
+	public void setDuracion(int duracion) {
 		this.duracion = duracion;
 	}
 
-	public float getDistancia() {
+	public int getDistancia() {
 		return distancia;
 	}
 
-	public void setDistancia(float distancia) {
+	public void setDistancia(int distancia) {
 		this.distancia = distancia;
 	}
 
-	public Date getFecha_creacion() {
-		return fecha_creacion;
+	public Date getFechaCreacion() {
+		return fechaCreacion;
 	}
 
-	public void setFecha_creacion(Date fecha_creacion) {
-		this.fecha_creacion = fecha_creacion;
+	public void setFechaCreacion(Date fechaCreacion) {
+		this.fechaCreacion = fechaCreacion;
 	}
 
 	public String getStatus() {
@@ -116,12 +116,14 @@ public class Route {
 	}
 	
 	public void calculateFastRoute() {
-		//TODO calcula la ruta más rapida para recorrer todos los puntos
-		// Se obtienen la longitud y latitud de todos los lugares
-		// Se obtiene
+		
 	}
 	
 	public boolean isThereAFasterRoute() {
+		//TODO calcula la ruta más rapida para recorrer todos los puntos
+		// Se obtienen la longitud y latitud de todos los lugares
+		// Se obtiene el orden en que se deben de recorrer todos los puntos
+		// Se compara con el orden de los puntos actuales y si son iguales, no se hace nada, si no, se regresa true
 		return false;
 	}
 	
@@ -172,25 +174,25 @@ public class Route {
 	}
 	
 	public void calculateRouteTime() {
-		String time = "";
+		int time = 0;
 		
 		for(Trajectory t: this.trayectorias) {
-			time += t.getTiempo(); //Arreglar esta parte
+			time += t.getTiempo();
 		}
 		
 		for(Place p: this.getLugares()) {
-			time += p.getTiempo_usuario(); //Arreglar esta parte
+			time += p.getTiempoUsuario();
 		}
 		
-		//this.duracion = time; //Arreglar esta parte
+		this.duracion = time;
 	}
 	
 	public void calculateRouteDistance() {
-		float distance = 0.15f;
+		int distance = 0;
 		
 		for(Trajectory t: this.trayectorias) {
-			//distance += t.getTiempo(); //Arreglar esta parte
+			distance += t.getTiempo();
 		}
-		//this.duracion = distance; //Arreglar esta parte
+		this.distancia = distance;
 	}
 }

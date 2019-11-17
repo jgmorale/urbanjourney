@@ -6,22 +6,22 @@ import java.time.Duration;
 public class Trajectory {
 	
 	private int id;
-	private int id_ruta;
-	private int id_origen;
-	private int id_destino;
-	private Duration tiempo;
-	private float distancia;
+	private int idRuta;
+	private int idOrigen;
+	private int idDestino;
+	private int tiempo;
+	private int distancia;
 	private Date hora;
 	private String direcciones;
 	
 	public Trajectory() {}
 
-	public Trajectory(int id, int id_ruta, int id_origen, int id_destino, Duration tiempo, float distancia, Date hora,
+	public Trajectory(int id, int idRuta, int idOrigen, int idDestino, int tiempo, int distancia, Date hora,
 			String direcciones) {
 		this.id = id;
-		this.id_ruta = id_ruta;
-		this.id_origen = id_origen;
-		this.id_destino = id_destino;
+		this.idRuta = idRuta;
+		this.idOrigen = idOrigen;
+		this.idDestino = idDestino;
 		this.tiempo = tiempo;
 		this.distancia = distancia;
 		this.hora = hora;
@@ -36,43 +36,43 @@ public class Trajectory {
 		this.id = id;
 	}
 
-	public int getId_ruta() {
-		return id_ruta;
+	public int getIdRuta() {
+		return idRuta;
 	}
 
-	public void setId_ruta(int id_ruta) {
-		this.id_ruta = id_ruta;
+	public void setIdRuta(int idRuta) {
+		this.idRuta = idRuta;
 	}
 
-	public int getId_origen() {
-		return id_origen;
+	public int getIdOrigen() {
+		return idOrigen;
 	}
 
-	public void setId_origen(int id_origen) {
-		this.id_origen = id_origen;
+	public void setIdOrigen(int idOrigen) {
+		this.idOrigen = idOrigen;
 	}
 
-	public int getId_destino() {
-		return id_destino;
+	public int getIdDestino() {
+		return idDestino;
 	}
 
-	public void setId_destino(int id_destino) {
-		this.id_destino = id_destino;
+	public void setIdDestino(int idDestino) {
+		this.idDestino = idDestino;
 	}
 
-	public Duration getTiempo() {
+	public int getTiempo() {
 		return tiempo;
 	}
 
-	public void setTiempo(Duration tiempo) {
+	public void setTiempo(int tiempo) {
 		this.tiempo = tiempo;
 	}
 
-	public float getDistancia() {
+	public int getDistancia() {
 		return distancia;
 	}
 
-	public void setDistancia(float distancia) {
+	public void setDistancia(int distancia) {
 		this.distancia = distancia;
 	}
 

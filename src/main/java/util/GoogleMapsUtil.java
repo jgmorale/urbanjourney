@@ -19,7 +19,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class GoogleMapsUtil {
-	// TODO Logic already completed. Need to test the module. Need to add a translator for time and distance.
+	// TODO Logic already completed. Need to test the module.
 	private static final String URL = "https://maps.googleapis.com/maps/api/directions/json?";
 	private static String apiKey = "";
 	
@@ -61,13 +61,17 @@ public class GoogleMapsUtil {
             JSONObject jsonDist = (JSONObject) jsonFinal.get("distance");
             JSONArray jsonStepsArr = (JSONArray) jsonFinal.get("steps");
             
-            String time = (String) jsonTime.get("text");
-            String distance = (String) jsonDist.get("text");
+            String time = (String) jsonTime.get("value");
+            String distance = (String) jsonTime.get("value");
+            String timeTxt = (String) jsonTime.get("text");
+            String distanceTxt = (String) jsonDist.get("text");
             String steps = jsonStepsArr.toString();
             
             // Agrega la información que nos importa a la lista
             lista.add(time);
             lista.add(distance);
+            lista.add(timeTxt);
+            lista.add(distanceTxt);
             lista.add(steps);
             
 		} catch (Exception e) {
