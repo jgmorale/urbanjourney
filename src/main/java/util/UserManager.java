@@ -9,7 +9,7 @@ import models.User;
 
 // TODO logic already completed.
 public class UserManager {
-	public Connection conn;
+	private Connection conn;
 	
 	public UserManager() {}
 	

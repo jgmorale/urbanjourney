@@ -145,6 +145,26 @@ public class Route {
 		lugares.add(place);
 	}
 	
+	public Place getPlace(int idPlace) {
+		List<Place> lugares = this.getLugares();
+		for(Place p: lugares) {
+			if(p.getId() == idPlace) {
+				return p;
+			}
+		}
+		return null;
+	}
+	
+	public Place getPlace(String placeName) {
+		List<Place> lugares = this.getLugares();
+		for(Place p: lugares) {
+			if(p.getNombre().compareTo(placeName) == 0) {
+				return p;
+			}
+		}
+		return null;
+	}
+	
 	public void deletePlace(Place place) {
 		List<Place> lugares = new ArrayList<Place>();
 		lugares = this.getLugares();
@@ -191,6 +211,11 @@ public class Route {
 	public void addTrajectory(Trajectory trayectoria) {
 		List<Trajectory> trayectorias = this.getTrayectorias();
 		trayectorias.add(trayectoria);
+	}
+	
+	public void insertTrajectory(int pos, Trajectory trayectoria) {
+		List<Trajectory> trayectorias = this.getTrayectorias();
+		trayectorias.add(pos, trayectoria);
 	}
 	
 	public Trajectory getTrajectory(int idTrayectoria) {
