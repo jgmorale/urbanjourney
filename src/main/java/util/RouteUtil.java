@@ -3,12 +3,25 @@ package util;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.simple.JSONObject;
+
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import models.Route;
 
 public class RouteUtil {
 	public RouteUtil() {}
+	
+	public static String RouteToJSON(Route route) {
+		return "";
+	}
+	
+	public static Route JSONToRoute(String string) {
+		Route route = new Route();
+		
+		return route;
+	}
 	
 	public static Route urbanJourneyReq(String req) {
 		// TODO implementar funcion
@@ -18,9 +31,10 @@ public class RouteUtil {
 	}
 	
 	public static String urbanJourneyResp(Route route) {
-		// TODO implementar funcion
-		String jsonString = new Gson().toJson("");
-		return jsonString;
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.addProperty("nombre", route.getNombre());
+		
+		return jsonObject.toString();
 	}
 	
 	public static String urbanJourneyResp(List<Route> routes) {
@@ -29,7 +43,7 @@ public class RouteUtil {
         
         // Convierte cada una de las rutas a formato JSON
         for(Route r: routes) {
-        	routesJSON.add(RouteUtil.urbanJourneyResp(r));
+        	//routesJSON.add(RouteUtil.urbanJourneyResp(r));
         }
         
         //Convierte la lista de rutasJSON a un solo JSON
@@ -37,4 +51,6 @@ public class RouteUtil {
         // Falta darle el formato que queremos para lo que vamos a regresar al front end
 		return "";
 	}
+	
+	
 }

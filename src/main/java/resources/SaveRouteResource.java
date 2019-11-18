@@ -26,7 +26,9 @@ public class SaveRouteResource {
 	// TODO agregar la condicion de que se verifique el token
 	@GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getRoutes(@FormParam("idUsuario") int idUsuario, @FormParam("token") String token){
+    public String getRoutes(){
+		String token = "";
+		int idUsuario = 0;
 		if(idUsuario == -1) {
 			return new Gson().toJson("Necesita una cuenta para poder hacer esta acción");
 		} else {
@@ -61,9 +63,12 @@ public class SaveRouteResource {
     }
 	
 	@GET
-	@Path("/getRoute")
+	@Path("/getroute")
 	@Consumes(MediaType.APPLICATION_JSON)
-	public String getRoute(@FormParam("idUsuario") int idUsuario, @FormParam("idRuta") int idRuta, @FormParam("token") String token) {
+	public String getRoute() {
+		int idUsuario = 0;
+		int idRuta = 0;
+		String token = "";
 		if(idUsuario == -1) {
 			return new Gson().toJson("Necesita una cuenta para poder hacer esta acción");
 		} else {

@@ -2,7 +2,9 @@ package models;
 
 public class Place {
 	private int id;
+	private int idFoo;
 	private int idRuta;
+	private int idRutaFoo;
 	private String nombre;
 	private String direccion;
 	private float latitud;
@@ -15,11 +17,12 @@ public class Place {
 	
 	public Place() {}
 
-	public Place(int id, int idRuta, String nombre, String direccion, float latitud, float longitud,
+	public Place(int id, int idFoo, int idRuta, int idRutaFoo, String nombre, String direccion, float latitud, float longitud,
 			int tiempoUsuario, String urlFoto, float calificacion, String costo, String tipo) {
-		super();
 		this.id = id;
+		this.idFoo = idFoo;
 		this.idRuta = idRuta;
+		this.idRutaFoo = idRutaFoo;
 		this.nombre = nombre;
 		this.direccion = direccion;
 		this.latitud = latitud;
@@ -29,6 +32,22 @@ public class Place {
 		this.calificacion = calificacion;
 		this.costo = costo;
 		this.tipo = tipo;
+	}
+	
+	public int getIdRutaFoo() {
+		return idRutaFoo;
+	}
+
+	public void setIdRutaFoo(int idRutaFoo) {
+		this.idRutaFoo = idRutaFoo;
+	}
+
+	public int getIdFoo() {
+		return idFoo;
+	}
+	
+	public void setIdFoo(int idFoo) {
+		this.idFoo = idFoo;
 	}
 
 	public float getLatitud() {

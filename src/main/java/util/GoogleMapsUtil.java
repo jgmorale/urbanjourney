@@ -59,19 +59,15 @@ public class GoogleMapsUtil {
             JSONObject jsonFinal = (JSONObject) jsonObject3.get(0);
             JSONObject jsonTime = (JSONObject) jsonFinal.get("duration");
             JSONObject jsonDist = (JSONObject) jsonFinal.get("distance");
-            JSONArray jsonStepsArr = (JSONArray) jsonFinal.get("steps");
             
-            String time = (String) jsonTime.get("value");
-            String distance = (String) jsonTime.get("value");
-            String timeTxt = (String) jsonTime.get("text");
-            String distanceTxt = (String) jsonDist.get("text");
+            JSONArray jsonStepsArr = (JSONArray) jsonFinal.get("steps");
+            String time = jsonTime.get("value").toString();
+            String distance = jsonDist.get("value").toString();
             String steps = jsonStepsArr.toString();
             
             // Agrega la información que nos importa a la lista
             lista.add(time);
             lista.add(distance);
-            //lista.add(timeTxt);
-            //lista.add(distanceTxt);
             lista.add(steps);
             
 		} catch (Exception e) {

@@ -8,6 +8,7 @@ import util.GoogleMapsUtil;
 
 public class Route {
 	private int id;
+	private int idFoo;
 	private int idUsuario;
 	private String nombre;
 	private int numLugares;
@@ -17,13 +18,13 @@ public class Route {
 	private String status;
 	private List<Place> lugares;
 	private List<Trajectory> trayectorias;
-	//private List<Points> puntos;
 	
 	public Route() {}
 	
-	public Route(int id, int idUsuario, String nombre, int numLugares, int duracion, int distancia,
+	public Route(int id, int idFoo, int idUsuario, String nombre, int numLugares, int duracion, int distancia,
 			Date fechaCreacion, String status, List<Place> lugares, List<Trajectory> trayectorias) {
 		this.id = id;
+		this.idFoo = idFoo;
 		this.idUsuario = idUsuario;
 		this.nombre = nombre;
 		this.numLugares = numLugares;
@@ -41,6 +42,14 @@ public class Route {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public int getIdFoo() {
+		return idFoo;
+	}
+
+	public void setIdFoo(int idFoo) {
+		this.idFoo = idFoo;
 	}
 
 	public int getIdUsuario() {
@@ -116,84 +125,109 @@ public class Route {
 	}
 	
 	public void calculateFastRoute() {
-		// TODO implementar la función
+		// TODO implementar algoritmo
 	}
 	
 	public boolean isThereAFasterRoute() {
-		//TODO calcula la ruta más rapida para recorrer todos los puntos
-		// Se obtienen la longitud y latitud de todos los lugares
-		// Se obtiene el orden en que se deben de recorrer todos los puntos
-		// Se compara con el orden de los puntos actuales y si son iguales, no se hace nada, si no, se regresa true
+		// TODO implementar algoritmo
 		return false;
 	}
 	
-	public void insertPlase(Place place, int pos) {
-		// TODO inserta un lugar en la posicion indicada
-		// Se tiene que eliminar la trayectoria que existe entre los dos puntos que antes eran adyacentes
-		// Se tiene que hacer una llamada a google maps para obtener dos nuevas trayectorias
-		// Se insertan las nuevas trayectorias y se actualiza el modelo
+	public void insertPlase(int pos, Place place) {
+		List<Place> lugares = new ArrayList<Place>();
+		lugares = this.getLugares();
+		lugares.add(pos, place);
 	}
 	
 	public void addPlace(Place place) {
-		//TODO cuando se inserta el lugar, se tiene que hacer una llamada de google maps para obtener los datos y añadirlos al modelo
 		List<Place> lugares = new ArrayList<Place>();
-		List<String> parametros = new ArrayList<String>();
-		lugares  = this.getLugares();
+		lugares = this.getLugares();
 		lugares.add(place);
-		
-		if(lugares.size()>1) {
-			// Hacer llamada a google maps para obtener los datos para el nuevo lugar agregado
-			//parametros = GoogleMapsUtil.getTimeDistSteps(lugares.get(lugares.size()-2).getNombre(), lugares.get(lugares.size()-1).getNombre())
-			// Agregar parametros al modelo
-			this.calculateRouteTime();
-			this.calculateRouteDistance();
-		}
 	}
 	
 	public void deletePlace(Place place) {
-		//TODO cuando se elimina un lugar, se tiene que eliminar el lugar de la lista, asi como sus respectivos trayectos, despues de eso se tiene que hacer una llamada a google maps para obtener el nuevo trayecto
-		
-		if(this.getLugares().size()==0) {
-			
-		} else {
-			List<String> parametros = new ArrayList<String>();
-			//parametros = GoogleMapsUtil.getTimeDistSteps("", ""); // Terminar de implementar esta parte
-			
-			this.calculateRouteTime();
-			this.calculateRouteDistance();
+		List<Place> lugares = new ArrayList<Place>();
+		lugares = this.getLugares();
+		for(Place p: lugares) {
+			if(p.getId() == place.getId()) {
+				lugares.remove(p);
+				break;
+			}
+		}
+	}
+	
+	public void deletePlace(int idPlace) {
+		List<Place> lugares = new ArrayList<Place>();
+		lugares = this.getLugares();
+		for(Place p: lugares) {
+			if(p.getId() == idPlace) {
+				lugares.remove(p);
+				break;
+			}
+		}
+	}
+	
+	public void deletePlace(String placeName) {
+		List<Place> lugares = new ArrayList<Place>();
+		lugares = this.getLugares();
+		for(Place p: lugares) {
+			if(p.getNombre().compareTo(placeName) == 0) {
+				lugares.remove(p);
+				break;
+			}
 		}
 	}
 	
 	public void modifyPlace(Place place) {
-		//TODO checar cual es la nueva posicion en el array y calcular los nuevos tiempos y distancias de todos los lugares
-		if(this.getLugares().contains(place)) {
-			// Modificar el tiempo que va a pasar el usuario en el lugar
-			this.calculateRouteTime();
-			this.calculateRouteDistance();
+		List<Place> lugares = this.getLugares();
+		for(int i = 0; i<lugares.size(); i++) {
+			if(lugares.get(i).getId() == place.getId()) {
+				lugares.remove(i);
+				lugares.add(i, place);
+			}
 		}
 	}
 	
 	public void addTrajectory(Trajectory trayectoria) {
-		
+		List<Trajectory> trayectorias = this.getTrayectorias();
+		trayectorias.add(trayectoria);
 	}
 	
-	public void getTrajectory(Trajectory trayectoria) {
-		// TODO implementar funcionalidad
+	public Trajectory getTrajectory(int idTrayectoria) {
+		List<Trajectory> trayectorias = this.getTrayectorias();
+		for(Trajectory t: trayectorias) {
+			if(t.getId() == idTrayectoria) {
+				return t;
+			}
+		}
+		
+		return null;
 	}
 	
 	public void modifyTrajectory(Trajectory trayectoria) {
-		//TODO implementar funcionalidad
+		List<Trajectory> trayectorias = this.getTrayectorias();
+		for(int i = 0; i<trayectorias.size(); i++) {
+			if(trayectorias.get(i).getId() == trayectoria.getId()) {
+				trayectorias.remove(i);
+				trayectorias.add(i, trayectoria);
+			}
+		}
 	}
 	
 	public void deleteTrajectory(Trajectory trayectoria) {
-		// TODO implementar funcionalidad
+		List<Trajectory> trayectorias = this.getTrayectorias();
+		for(Trajectory t: trayectorias) {
+			if(t.getId() == trayectoria.getId()) {
+				trayectorias.remove(t);
+				break;
+			}
+		}
 	}
 	
-	// Ya esta implementada la función
 	public void calculateRouteTime() {
 		int time = 0;
 		
-		for(Trajectory t: this.trayectorias) {
+		for(Trajectory t: this.getTrayectorias()) {
 			time += t.getTiempo();
 		}
 		
@@ -204,13 +238,13 @@ public class Route {
 		this.duracion = time;
 	}
 	
-	// Ya está implementada la función
 	public void calculateRouteDistance() {
 		int distance = 0;
 		
-		for(Trajectory t: this.trayectorias) {
+		for(Trajectory t: this.getTrayectorias()) {
 			distance += t.getTiempo();
 		}
+		
 		this.distancia = distance;
 	}
 }
