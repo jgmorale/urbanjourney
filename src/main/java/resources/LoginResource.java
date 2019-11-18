@@ -20,6 +20,7 @@ public class LoginResource {
 	
 	@POST
 	@Consumes
+	// TODO Cambiarlo por el correo
 	public String userLogIn(@FormParam("username") String username, @FormParam("password") String password) {
 		Connection conn = DatabaseUtil.getConnection();
 		UserManager usrManager = new UserManager(conn);
@@ -38,6 +39,7 @@ public class LoginResource {
 	@POST
 	@Path("/register")
 	@Consumes(MediaType.APPLICATION_JSON)
+	// TODO Solo tener en consideración el email y el password
 	public String userRegistration(@FormParam("nombre") String nombre, @FormParam("apellido") String apellido, @FormParam("username") String username, @FormParam("password") String password, @FormParam("correo") String correo, @FormParam("ciudad") String ciudad, @FormParam("pais") String pais) {
 		User usuario = new User();
 		usuario.setNombre(nombre);

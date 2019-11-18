@@ -116,7 +116,7 @@ public class Route {
 	}
 	
 	public void calculateFastRoute() {
-		
+		// TODO implementar la función
 	}
 	
 	public boolean isThereAFasterRoute() {
@@ -173,6 +173,23 @@ public class Route {
 		}
 	}
 	
+	public void addTrajectory(Trajectory trayectoria) {
+		
+	}
+	
+	public void getTrajectory(Trajectory trayectoria) {
+		// TODO implementar funcionalidad
+	}
+	
+	public void modifyTrajectory(Trajectory trayectoria) {
+		//TODO implementar funcionalidad
+	}
+	
+	public void deleteTrajectory(Trajectory trayectoria) {
+		// TODO implementar funcionalidad
+	}
+	
+	// Ya esta implementada la función
 	public void calculateRouteTime() {
 		int time = 0;
 		
@@ -187,6 +204,7 @@ public class Route {
 		this.duracion = time;
 	}
 	
+	// Ya está implementada la función
 	public void calculateRouteDistance() {
 		int distance = 0;
 		

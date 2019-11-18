@@ -70,8 +70,8 @@ public class GoogleMapsUtil {
             // Agrega la información que nos importa a la lista
             lista.add(time);
             lista.add(distance);
-            lista.add(timeTxt);
-            lista.add(distanceTxt);
+            //lista.add(timeTxt);
+            //lista.add(distanceTxt);
             lista.add(steps);
             
 		} catch (Exception e) {
